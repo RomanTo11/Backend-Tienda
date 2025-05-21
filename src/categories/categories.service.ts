@@ -1,40 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Category } from './category.entity';
+import { Categories } from './entities/category.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
-  constructor(
-    @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>,
-  ) {}
+    constructor(
+        @InjectRepository(Categories)
+        private categoryRepo: Repository<Categories>,
+    ) { }
 
-  create(createCategoryDto: CreateCategoryDto) {
-    const category = this.categoryRepository.create(createCategoryDto);
-    return this.categoryRepository.save(category);
-  }
+    create(dto: CreateCategoryDto): Promise<Categories> {
+        const category = this.categoryRepo.create(dto);
+        return this.categoryRepo.save(category);
+    }
 
-  findAll() {
-    return this.categoryRepository.find();
-  }
+    findAll(): Promise<Categories[]> {
+        return this.categoryRepo.find();
+    }
 
-  findOne(id: string) {
-    return this.categoryRepository.findOne({ where: { id } });
-  }
+    findOne(id: string): Promise<Categories | null> {
+        return this.categoryRepo.findOneBy({ id });
+    }
 
-  async update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    const category = await this.categoryRepository.findOne({ where: { id } });
-    if (!category) return null;
-    Object.assign(category, updateCategoryDto);
-    return this.categoryRepository.save(category);
-  }
+    async update(id: string, dto: UpdateCategoryDto): Promise<Categories | null> {
+        await this.categoryRepo.update(id, dto);
+        return this.findOne(id);
+    }
 
-  async remove(id: string) {
-    const category = await this.categoryRepository.findOne({ where: { id } });
-    if (!category) return null;
-    return this.categoryRepository.remove(category);
-  }
+    async remove(id: string): Promise<void> {
+        return this.categoryRepo.delete(id).then(() => undefined);
+    }
 }

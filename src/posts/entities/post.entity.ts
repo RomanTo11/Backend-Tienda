@@ -1,8 +1,8 @@
+import { Categories } from 'src/categories/entities/category.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Category } from '../categories/category.entity';
 
-@Entity('posts')
-export class Post {
+@Entity()
+export class Posts {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -12,6 +12,6 @@ export class Post {
   @Column()
   content: string;
 
-  @ManyToOne(() => Category, { eager: true })
-  category: Category;
+  @ManyToOne(() => Categories, { eager: true })
+  category: Categories;
 }
