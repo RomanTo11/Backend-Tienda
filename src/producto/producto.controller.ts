@@ -2,6 +2,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { ProductoService } from './producto.service';
 import { Producto } from './entities/producto.entity';
+import { CreateProductoDto } from './dto/create-producto.dto';
+
+
+
 
 @Controller('productos')
 export class ProductoController {
@@ -17,9 +21,10 @@ export class ProductoController {
     return this.productoService.findOne(Number(id));
   }
 
+  
   @Post()
-  create(@Body() data: Partial<Producto>) {
-    return this.productoService.create(data);
+  create(@Body() createProductoDto: CreateProductoDto) {
+    return this.productoService.create(createProductoDto);
   }
 
   @Put(':id')
@@ -31,4 +36,5 @@ export class ProductoController {
   delete(@Param('id') id: string) {
     return this.productoService.delete(Number(id));
   }
+  
 }

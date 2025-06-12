@@ -4,6 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { ProductoModule } from './producto/producto.module';
+import { VentaModule } from './venta/venta.module';
+import { ClienteModule } from './cliente/cliente.module';
+import { DetalleVentaModule } from './detalle_venta/detalle_venta.module';
 
 
 @Module({
@@ -21,7 +25,10 @@ import { AuthModule } from './auth/auth.module';
           ssl: { rejectUnauthorized: false },  
     }),
     AuthModule,
-    
+    ProductoModule,
+    VentaModule,
+    ClienteModule,
+    DetalleVentaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

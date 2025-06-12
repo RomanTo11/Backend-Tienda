@@ -14,15 +14,11 @@ export class Producto {
 
   @Column('decimal', { precision: 10, scale: 2 })
   precio: number;
-
-  @Column()
-  marca: string;
-
+ 
   @Column()
   stock: number;
 
-  @OneToMany(() => DetalleVenta, detalle => detalle.producto)
-  detalles: DetalleVenta[];
+  
 }
 
 

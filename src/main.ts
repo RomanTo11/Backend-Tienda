@@ -7,6 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
   app.useGlobalFilters(new GlobalHttpExceptionFilter());
-  await app.listen(3000);
+  app.enableCors();
+
+  const PORT = process.env.PORT || 3000;
+  await app.listen(PORT);
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
 }
 bootstrap();

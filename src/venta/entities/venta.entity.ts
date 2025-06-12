@@ -1,12 +1,5 @@
 // src/venta/entities/venta.entity.ts
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  ManyToOne,
-  OneToMany,              // ← Importa OneToMany
-} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, OneToMany, } from 'typeorm';
 import { Cliente } from 'src/cliente/entities/cliente.entity';
 import { DetalleVenta } from 'src/detalle_venta/entities/detalle_venta.entity';
 

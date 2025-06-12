@@ -16,6 +16,6 @@ export class DetalleVenta {
   @ManyToOne(() => Venta, venta => venta.detalles, { eager: true })
   venta: Venta;
 
-  @ManyToOne(() => Producto, producto => producto.detalles, { eager: true })
-  producto: Producto;
+  @ManyToOne(() => Producto, { eager: true })
+  producto: Producto; // ← Este campo es necesario para que coincida con el DTO
 }
